@@ -1,22 +1,16 @@
 <?php
-$name = $_POST['name'];
-$visitor_email = $_POST['email'];
-$message = $_POST['message'];
+if(!empty($_POST["send"])) {
+	$name = $_POST["userName"];
+	$email = $_POST["userEmail"];
+	$subject = $_POST["subject"];
+	$content = $_POST["content"];
 
-$email_form = 'hdbkundi@gmail.com';
-
-$email_subject = "New Form Submission";
-$email_body = "User Name: $name.\n".
-                "User Email: $visitor_email.\n".
-                "User Message: $message.\n";
-
-                $to = "vulreking@gmail.com";
-
-                $headers = "From: $visitor_email \r\n";
-
-                mail($to,$email_subject,$email_body,$headers);
-
-                header("Location: index.html")
-
-
-                ?>
+	$toEmail = "vulreking@gmail.com";
+	$mailHeaders = "From: " . $name . "<". $email .">\r\n";
+	if(mail($toEmail, $subject, $content, $mailHeaders)) {
+	    $message = "Your contact information is received successfully.";
+	    $type = "success";
+	}
+}
+require_once "contact-view.php";
+?>
